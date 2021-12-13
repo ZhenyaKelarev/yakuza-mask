@@ -1,9 +1,20 @@
-var dotenv = require("dotenv");
+var dotenv = require("dotenv")
 dotenv.config({
   path: `.env.${process.env.NODE_ENV}`,
-});
+})
 
-const { CONTENTFUL_SPACE_ID:spaceId, CONTENTFUL_ACCESS_TOKEN: accessToken, snipcart } = process.env;
+const {
+  CONTENTFUL_SPACE_ID: spaceId,
+  CONTENTFUL_ACCESS_TOKEN: accessToken,
+  snipcart,
+} = process.env
+
+require("ts-node").register({
+  compilerOptions: {
+    module: "commonjs",
+    target: "es2017",
+  },
+})
 
 module.exports = {
   siteMetadata: {
@@ -13,6 +24,14 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true, // defaults to false
+        jsxPragma: `jsx`, // defaults to "React"
+        allExtensions: true, // defaults to false
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -39,8 +58,8 @@ module.exports = {
       resolve: "gatsby-source-contentful",
       options: {
         spaceId,
-        accessToken
-      }
+        accessToken,
+      },
     },
     {
       resolve: "gatsby-plugin-snipcartv3",

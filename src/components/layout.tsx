@@ -14,7 +14,7 @@ import theme from "./theme"
 import Header from "./header"
 import Footer from "./footer"
 
-const Layout = ({ children }) => (
+const Layout = ({ children }: any) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
